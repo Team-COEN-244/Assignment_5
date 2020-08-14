@@ -1,8 +1,11 @@
 #include "Array.h"
+#include <fstream>
+#include <string>
+#include <iostream>
 #include <stdexcept>
 
 // default constructor for class Array (default size 10)
-template <class T>
+template<typename T>
 Array<T>::Array(int arraySize)
     : size{ (arraySize > 0 ? static_cast <size_t>(arraySize) : throw std::invalid_argument{"Array size must be greater than 0"}) }
     , ptr{ new int[size] {} }
@@ -10,7 +13,7 @@ Array<T>::Array(int arraySize)
 
 // copy constructor for class Array;
 // must receive a reference to an Array
-template <class T>
+template<typename T>
 Array<T>::Array(const Array& arrayToCopy) : size{ arrayToCopy.size }, ptr{ new int[size] } 
 {
     for (size_t i{ 0 }; i < size; ++i)
@@ -18,14 +21,14 @@ Array<T>::Array(const Array& arrayToCopy) : size{ arrayToCopy.size }, ptr{ new i
 }
 
 // destructor for class Array
-template <class T>
+template<typename T>
 Array<T>::~Array()
 {
     delete[] ptr; // release pointer-based array space
 }
 
 // return number of elements of Array
-template <class T>
+template<typename T>
 size_t Array<T>::getSize() const 
 {
     return size; // number of elements in Array
@@ -54,7 +57,7 @@ const Array<T>& Array<T>:: operator=(const Array<T>& right)
 
 // determine if two Arrays are equal and
 // return true, otherwise return false
-template <class T>
+template<typename T>
 bool Array<T>::operator==(const Array<T>& right) const
 {
     if (size != right.size) {
@@ -70,7 +73,7 @@ bool Array<T>::operator==(const Array<T>& right) const
 }
 
 // inequality operator; returns opposite of == operator
-template<class T>
+template<typename T>
 bool Array<T>::operator!=(const Array& right) const
 {
     return !(*this == right); // invokes Array::operator==
@@ -78,7 +81,8 @@ bool Array<T>::operator!=(const Array& right) const
 
 // overloaded subscript operator for non-const Arrays;
 // reference return creates a modifiable lvalue
-template <class T>
+
+template<typename T>
 int& Array<T>::operator[](int subscript)
 {
     // check for subscript out-of-range error
@@ -89,7 +93,7 @@ int& Array<T>::operator[](int subscript)
 
 // overloaded subscript operator for const Arrays
 // const reference return creates an rvalue
-template <class T>
+template<typename T>
 int Array<T>::operator[](int subscript) const 
 {
     // check for subscript out-of-range error
@@ -101,22 +105,21 @@ int Array<T>::operator[](int subscript) const
 
 // overloaded input operator for class Array;
 // inputs values for entire Array
-template<class T>
+template<typename T>
 std::istream& operator>>(std::istream& input, Array<T>& a)
 {
-    for (size_t i{ 0 }; i < a.size; ++i) {
+    for (size_t i{ 0 }; i < a.size(); ++i)
         input >> a.ptr[i];
-    }
+
     return input; // enables cin >> x >> y;
 }
 
 // overloaded output operator for class Array
-template<class T>
+template<typename T>
 std::ostream& operator<<(std::ostream& output, const Array<T>& a)
 {   // output private ptr-based array
-    for (size_t i{ 0 }; i < a.size; ++i) {
+    for (size_t i{ 0 }; i < a.size; ++i)
         output << a.ptr[i] << " ";
-    }
-    output << std::endl;
+
     return output; // enables cout << x << y;
 }
