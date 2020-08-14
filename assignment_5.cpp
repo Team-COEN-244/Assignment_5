@@ -1,92 +1,46 @@
-#include <iostream> 
-#include <string>
-#include <vector>
+/* Mélina Deneuve ID#40153103
+   Rudy Zoghaib   ID#40025399
+Assignment - 5 - COEN 244
+Environment : Visual Studio 2019 */
+
+#include <iostream>
 #include <fstream>
-
-using namespace std;
-template <class T>
-
-class array 
-{
-    private:
-    int size;
-    vector <T> vec;
-    
-    public: 
-
-    array(int size=0)
-    {
-        this->size=size;
-    }
-
-    T operator[](int index)
-    {
-        return vec.at(index);
-    }
-
-    int getsize()
-    {
-        return size;
-    }
-    
-    void push_back(T t)
-    {
-        vec.push_back(t);
-        size++;
-    }
-};
+#include "Array.h"
+#include "Array.cpp"
 
 int main()
 {
-    ofstream f("Template.txt");
+    std::ofstream TemplateTxtFile("Template.txt", std::ios::out); // Creating the Template.txt file
 
-    array<int> intarray(5);
-    array<double> doublearray(5);
-    array<string> stringarray(3);
-    
-    cout << "Enter data for integer array\n";
-    for(int i=0; i<5; ++i)
+    if (!TemplateTxtFile) // Exit program if it is unable to creat that txt file
     {
-        cout << "Data: ";
-        int n;
-        cin >> n;
-        intarray.push_back(n);
-    }
-    cout << "Please enter data for double array\n";
-    for (int i=0; i<5; ++i)
+        std::cerr << "File could not be opened" << std::endl;
+        exit(EXIT_FAILURE);
+    } // End if
+
+    Array<int> intArray{ 5 };
+    Array<double> doubleArray{ 5 };
+    Array<std::string> stringArray{ 3 };
+
+    std::cout << "Please enter the members of your array of integers." << std::endl;
+    for (int i = 0; i < intArray.getSize(); i++)
     {
-        cout << "Data: ";
-        double n;
-        cin >> doublearray.push_back(n);
-    }
-    cout << "Please enter data for string array\n:";
-    for (int i=0; i<3; ++i)
-    {
-        cout << "Data: ";
-        string n;
-        cin >> n;
-        stringarra.push_back(n);
+        std::cin >> intArray[i];
+        TemplateTxtFile << intArray[i];
     }
 
-    cout << "Data integer array\n";
-    for (int i=0; i<5; ++i)
+    std::cout << "Please enter the members of your array of doubles." << std::endl;
+    for (int i = 0; i < doubleArray.getSize(); i++)
     {
-        cout << intsarray[i] << endl;
-        f<<intarray[i]<< endl;
+        std::cin >> doubleArray[i];
+        TemplateTxtFile << doubleArray[i] << std::endl;
     }
 
-    cout << "Double data array\n ";
-    for (int i=0; i<5; ++i)
+    std::cout << "Please enter the members of your array of strings." << std::endl;
+    for (int i = 0; i < stringArray.getSize(); i++)
     {
-        cout << doublearray[i] << endl;
-        f<<doublearray[i]<<endl;
+        std::cin >> stringArray[i];
+        TemplateTxtFile << stringArray[i];
     }
-    cout <<"Data string array\n";
-    for (int i=0; i<3; ++i)
-    {
-        cout << stringarray[i]<< endl;
-        f << stringarray[i] << endl;
-        
-    }
-
+    return 0;
 }
