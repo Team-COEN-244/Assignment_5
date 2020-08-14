@@ -4,11 +4,11 @@
 
 #include <iostream>
 
-template <class T>
+template<typename T>
 class Array {
 
-    friend std::ostream& operator<<(std::ostream&, const Array&);
-    friend std::istream& operator>>(std::istream&, Array&);
+    friend std::ostream& operator<< (std::ostream&, const Array&);
+    friend std::istream& operator>> (std::istream&, Array&);
 
 private:
 
