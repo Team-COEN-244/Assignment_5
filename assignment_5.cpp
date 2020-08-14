@@ -26,21 +26,41 @@ int main()
     for (int i = 0; i < intArray.getSize(); i++)
     {
         std::cin >> intArray[i];
-        TemplateTxtFile << intArray[i];
+        TemplateTxtFile << intArray[i] << " ";
     }
+    TemplateTxtFile << std::endl;
 
     std::cout << "Please enter the members of your array of doubles." << std::endl;
     for (int i = 0; i < doubleArray.getSize(); i++)
     {
         std::cin >> doubleArray[i];
-        TemplateTxtFile << doubleArray[i] << std::endl;
+        TemplateTxtFile << static_cast<double>(doubleArray[i]) << std::endl;
     }
+    TemplateTxtFile << std::endl;
 
     std::cout << "Please enter the members of your array of strings." << std::endl;
     for (int i = 0; i < stringArray.getSize(); i++)
     {
         std::cin >> stringArray[i];
-        TemplateTxtFile << stringArray[i];
+        TemplateTxtFile << stringArray[i] << " ";
     }
+    TemplateTxtFile << std::endl;
+
+    std::cout << "\nThe values in the int array are: " << std::endl;
+        for (int i = 0; i < intArray.getSize(); i++)
+        {
+            std::cout << intArray[i] << "   ";
+        }
+        std::cout << "\n\nThe values in the double array are: " << std::endl;
+        for (int i = 0; i < doubleArray.getSize(); i++)
+        {
+            std::cout << doubleArray[i] << "   ";
+        }     
+        std::cout << "\n\nThe values in the string array are: " << std::endl;
+        for (int i = 0; i < stringArray.getSize(); i++)
+        {
+            std::cout << stringArray[i] << " ";
+        }
+
     return 0;
 }
