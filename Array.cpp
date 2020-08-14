@@ -8,13 +8,13 @@
 template<typename T>
 Array<T>::Array(int arraySize)
     : size{ (arraySize > 0 ? static_cast <size_t>(arraySize) : throw std::invalid_argument{"Array size must be greater than 0"}) }
-    , ptr{ new int[size] {} }
+    , ptr{ new T[size] {} }
 { /* empty body */}
 
 // copy constructor for class Array;
 // must receive a reference to an Array
 template<typename T>
-Array<T>::Array(const Array& arrayToCopy) : size{ arrayToCopy.size }, ptr{ new int[size] } 
+Array<T>::Array(const Array& arrayToCopy) : size{ arrayToCopy.size }, ptr{ new T[size] } 
 {
     for (size_t i{ 0 }; i < size; ++i)
         ptr[i] = arrayToCopy.ptr[i]; // copy into object
@@ -45,7 +45,7 @@ const Array<T>& Array<T>:: operator=(const Array<T>& right)
         if (size != right.size) {
             delete[] ptr; // release space
             size = right.size; // resize this object
-            ptr = new int[size]; // create space for Array copy
+            ptr = new T[size]; // create space for Array copy
         }
 
         for (size_t i{ 0 }; i < size; ++i) {
@@ -83,7 +83,7 @@ bool Array<T>::operator!=(const Array& right) const
 // reference return creates a modifiable lvalue
 
 template<typename T>
-int& Array<T>::operator[](int subscript)
+T& Array<T>::operator[](int subscript)
 {
     // check for subscript out-of-range error
     if (subscript < 0 || subscript >= size)
@@ -94,7 +94,7 @@ int& Array<T>::operator[](int subscript)
 // overloaded subscript operator for const Arrays
 // const reference return creates an rvalue
 template<typename T>
-int Array<T>::operator[](int subscript) const 
+T Array<T>::operator[](int subscript) const 
 {
     // check for subscript out-of-range error
     if (subscript < 0 || subscript >= size) {
